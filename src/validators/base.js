@@ -12,7 +12,12 @@ export default class BaseValidator {
   }
 
   // Push to result
-  _addToResult({ message = '', lineNumber }) {
-    this.result.push({ message, lineNumber, validator: this._validator });
+  _addToResult({ message = '', lineNumber, errorCode }) {
+    this.result.push({
+      errorCode,
+      message,
+      lineNumber,
+      validator: this._validator,
+    });
   }
 }

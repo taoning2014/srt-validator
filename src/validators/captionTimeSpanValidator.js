@@ -1,4 +1,5 @@
 import BaseValidator from './base';
+import { ERROR_CODE } from '../utils/errorCode';
 
 export default class CaptionTimeSpanValidator extends BaseValidator {
   constructor(...args) {
@@ -14,14 +15,15 @@ export default class CaptionTimeSpanValidator extends BaseValidator {
       .map(({ time: { start, end }, lineNumbers }, index) => {
         if (start >= end) {
           this._addToResult({
+            errorCode: ERROR_CODE.VALIDATOR_ERROR_START_TIME,
             message: 'start time should be less than end time',
             lineNumber: lineNumbers.timeSpan + 1,
           });
         }
 
-        return { start, end };
+        return { start, end, lineNumbers };
       })
-      .map(({ start, end }, index) => {
+      .map(({ start, end, lineNumbers }, index) => {
         if (index === 0) {
           previousEndTime = end;
           return;
@@ -29,6 +31,7 @@ export default class CaptionTimeSpanValidator extends BaseValidator {
 
         if (previousEndTime > start) {
           this._addToResult({
+            errorCode: ERROR_CODE.VALIDATOR_ERROR_END_TIME,
             message: 'start time should be less than previous end time',
             lineNumber: lineNumbers.timeSpan + 1,
           });

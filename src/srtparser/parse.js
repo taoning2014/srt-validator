@@ -1,3 +1,4 @@
+import { ERROR_CODE } from '../utils/errorCode';
 import ParseError from './parseerror';
 import { toMS } from './date';
 
@@ -14,7 +15,7 @@ export default function parse(file) {
 
   const result = [];
 
-  for (var i = 0; i < lines.length; i++) {
+  for (let i = 0; i < lines.length; i++) {
     const lineNumbers = { chunkStart: i };
 
     // First line
@@ -38,7 +39,11 @@ export default function parse(file) {
     }
     const text = _linesOfText.join('\n');
     if (!text) {
-      throw new ParseError(`Missing caption text`, i);
+      throw new ParseError(
+        `Missing caption text`,
+        i,
+        ERROR_CODE.PARSER_ERROR_MISSING_TEXT
+      );
     }
 
     lineNumbers.chunkEnd = i - 1;
@@ -62,13 +67,18 @@ export default function parse(file) {
  */
 function parseSequenceNumber(sequenceNumber, lineNumber) {
   if (!sequenceNumber) {
-    throw new ParseError(`Missing sequence number`, lineNumber);
+    throw new ParseError(
+      `Missing sequence number`,
+      lineNumber,
+      ERROR_CODE.PARSER_ERROR_MISSING_SEQUENCE_NUMBER
+    );
   }
   const _sequenceNumber = Number(sequenceNumber);
   if (!Number.isInteger(_sequenceNumber)) {
     throw new ParseError(
       `Expected Integer for sequence number: ${sequenceNumber}`,
-      lineNumber
+      lineNumber,
+      ERROR_CODE.PARSER_ERROR_INVALID_SEQUENCE_NUMBER
     );
   }
   return _sequenceNumber;
@@ -88,11 +98,19 @@ function parseSequenceNumber(sequenceNumber, lineNumber) {
  */
 function parseTimeSpan(timeSpan, lineNumber) {
   if (!timeSpan) {
-    throw new ParseError(`Missing time span: ${timeSpan}`, lineNumber);
+    throw new ParseError(
+      `Missing time span: ${timeSpan}`,
+      lineNumber,
+      ERROR_CODE.PARSER_ERROR_MISSING_TIME_SPAN
+    );
   }
   const [start, end] = timeSpan.split(' --> ');
   if (!start || !end) {
-    throw new ParseError(`Invalid time span: ${timeSpan}`, lineNumber);
+    throw new ParseError(
+      `Invalid time span: ${timeSpan}`,
+      lineNumber,
+      ERROR_CODE.PARSER_ERROR_INVALID_TIME_SPAN
+    );
   }
   return {
     start: parseTimeStamp(start, lineNumber),
@@ -114,7 +132,11 @@ function parseTimeSpan(timeSpan, lineNumber) {
 export function parseTimeStamp(timeStamp, lineNumber) {
   const match = TIME_STAMP_REGEX.exec(timeStamp);
   if (!match) {
-    throw new ParseError(`Invalid time stamp: ${timeStamp}`, lineNumber);
+    throw new ParseError(
+      `Invalid time stamp: ${timeStamp}`,
+      lineNumber,
+      ERROR_CODE.PARSER_ERROR_INVALID_TIME_STAMP
+    );
   }
   const [hours, minutes, seconds, millis] = match.slice(1).map(Number);
   return (

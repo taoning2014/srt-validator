@@ -1,4 +1,5 @@
 import BaseValidator from './base';
+import { ERROR_CODE } from '../utils/errorCode';
 
 export default class LineNumberValidator extends BaseValidator {
   constructor(...args) {
@@ -12,6 +13,7 @@ export default class LineNumberValidator extends BaseValidator {
     // need to start with 1
     if (this.parsedJSON[0].sequenceNumber !== 1) {
       this._addToResult({
+        errorCode: ERROR_CODE.VALIDATOR_ERROR_SEQUENCE_NUMBER_START,
         message: 'number of sequence need to start with 1',
         lineNumber: this.parsedJSON[0].sequenceNumber + 1,
       });
@@ -23,6 +25,7 @@ export default class LineNumberValidator extends BaseValidator {
       const { sequenceNumber, lineNumbers } = obj;
       if (sequenceNumber !== index + 1) {
         this._addToResult({
+          errorCode: ERROR_CODE.VALIDATOR_ERROR_SEQUENCE_NUMBER_INCREMENT,
           message: 'number of sequence need to increment by 1',
           lineNumber: lineNumbers.sequenceNumber + 1,
         });

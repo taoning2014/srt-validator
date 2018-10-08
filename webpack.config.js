@@ -8,9 +8,6 @@ module.exports = {
     library: 'srtValidator',
     libraryTarget: 'amd',
   },
-  optimization: {
-    mangleWasmImports: false,
-  },
   resolve: {
     alias: {
       'srt-validator': path.resolve(__dirname, 'src'),

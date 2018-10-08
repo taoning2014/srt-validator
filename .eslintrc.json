@@ -11,6 +11,8 @@
     "class-methods-use-this": "warn",
     "array-callback-return": "warn",
     "consistent-return": "warn",
-    "no-use-before-define": "warn"
+    "no-use-before-define": "warn",
+    "no-plusplus": "warn",
+    "import/prefer-default-export": "warn"
   }
 }
