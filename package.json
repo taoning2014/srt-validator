@@ -4,11 +4,12 @@
   "description": "",
   "main": "dist/srtValidator.js",
   "scripts": {
-    "test:watch": "./node_modules/.bin/karma start --no-single-run",
     "build": "./node_modules/.bin/webpack",
     "prepublish": "npm run build",
     "precommit:prettier": "./scripts/precommit-prettier.sh",
-    "precommit:test": "./node_modules/.bin/karma start"
+    "precommit:test": "jest --coverage --changedSince=master",
+    "test": "jest --config=./jest.config.js",
+    "test:watch": "npm run test -- --watch"
   },
   "precommit": [
     "precommit:prettier",
@@ -18,21 +19,24 @@
     "@babel/core": "^7.0.0-beta.42",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.42",
     "@babel/preset-env": "^7.0.0-beta.42",
+    "babel-jest": "^24.0.0",
     "babel-loader": "^8.0.0-beta.2",
     "eslint": "^4.9.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-prettier": "^2.6.0",
     "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jest": "^22.2.2",
     "eslint-plugin-prettier": "^2.3.1",
-    "karma": "^3.0.0",
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-qunit": "^2.1.0",
-    "karma-webpack": "^3.0.0",
+    "jest": "^24.0.0",
     "pre-commit": "^1.2.2",
     "prettier": "^1.8.2",
-    "qunit": "^2.8.0",
     "webpack": "^4.17.1",
     "webpack-cli": "^3.1.0"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env"
+    ]
   },
   "keywords": [],
   "author": "Sean Johnson & Tao Ning",

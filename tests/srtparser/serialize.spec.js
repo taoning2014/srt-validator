@@ -1,10 +1,8 @@
 import SRTParser from 'srt-validator/srtparser';
 import { toMS } from 'srt-validator/srtparser/date';
 
-const { test } = QUnit;
-
-test('Success: simple serialization', function(assert) {
-  assert.equal(
+test('Success: simple serialization', () => {
+  expect(
     SRTParser.serialize([
       {
         sequenceNumber: 1,
@@ -16,19 +14,30 @@ test('Success: simple serialization', function(assert) {
         time: { start: 0, end: 0 },
         text: 'World',
       },
-    ]),
-    `1
+    ])
+  ).toBe(`1
 00:00:00,000 --> 01:01:01,001
 Hello
 
 2
 00:00:00,000 --> 00:00:00,000
-World`
-  );
+World`);
 });
 
-test('Success: simple serialization (WebVTT)', function(assert) {
-  assert.equal(
+test('Success: simple serialization (WebVTT)', () => {
+  const expected = `WEBVTT
+
+1
+00:00:00.000 --> 00:00:00.001
+- It
+- is
+- wednesday
+
+2
+00:00:00.001 --> 01:01:01.001
+- My dudes`;
+
+  expect(
     SRTParser.serialize(
       [
         {
@@ -43,17 +52,6 @@ test('Success: simple serialization (WebVTT)', function(assert) {
         },
       ],
       'WebVTT'
-    ),
-    `WEBVTT
-
-1
-00:00:00.000 --> 00:00:00.001
-- It
-- is
-- wednesday
-
-2
-00:00:00.001 --> 01:01:01.001
-- My dudes`
-  );
+    )
+  ).toBe(expected);
 });
