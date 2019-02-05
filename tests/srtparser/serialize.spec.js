@@ -2,6 +2,14 @@ import SRTParser from 'srt-validator/srtparser';
 import { toMS } from 'srt-validator/srtparser/date';
 
 test('Success: simple serialization', () => {
+  const expected = `1
+00:00:00,000 --> 01:01:01,001
+Hello
+
+2
+00:00:00,000 --> 00:00:00,000
+World`;
+
   expect(
     SRTParser.serialize([
       {
@@ -15,13 +23,7 @@ test('Success: simple serialization', () => {
         text: 'World',
       },
     ])
-  ).toBe(`1
-00:00:00,000 --> 01:01:01,001
-Hello
-
-2
-00:00:00,000 --> 00:00:00,000
-World`);
+  ).toBe(expected);
 });
 
 test('Success: simple serialization (WebVTT)', () => {
@@ -54,4 +56,19 @@ test('Success: simple serialization (WebVTT)', () => {
       'WebVTT'
     )
   ).toBe(expected);
+});
+
+test('Failure: invalid format', () => {
+  expect(() =>
+    SRTParser.serialize(
+      [
+        {
+          sequenceNumber: 1,
+          time: { start: 0, end: 1 },
+          text: 'It\nis\nwednesday',
+        },
+      ],
+      'Gibberish'
+    )
+  ).toThrowError(new Error('Unrecognized format: Gibberish'));
 });

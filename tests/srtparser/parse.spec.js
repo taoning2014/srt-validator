@@ -17,9 +17,8 @@ world`
   ).toEqual([
     {
       lineNumbers: {
-        chunkEnd: 2,
         chunkStart: 0,
-        sequenceNumber: 0,
+        chunkEnd: 2,
         text: 2,
         timeSpan: 1,
       },
@@ -29,9 +28,8 @@ world`
     },
     {
       lineNumbers: {
-        chunkEnd: 6,
         chunkStart: 4,
-        sequenceNumber: 4,
+        chunkEnd: 6,
         text: 6,
         timeSpan: 5,
       },
@@ -43,6 +41,37 @@ world`
 });
 
 test('Success: multiline text', () => {
+  expect(
+    SRTParser.parse(
+      `1
+00:00:00,000 --> 00:00:00,001
+hello
+world
+this
+is
+cool
+`
+    )
+  ).toEqual([
+    {
+      lineNumbers: {
+        chunkEnd: 6,
+        chunkStart: 0,
+        text: 2,
+        timeSpan: 1,
+      },
+      sequenceNumber: 1,
+      time: { start: 0, end: 1 },
+      text: `hello
+world
+this
+is
+cool`,
+    },
+  ]);
+});
+
+test('Success: erroneous multiline text', () => {
   expect(
     // I'm purposefully choosing to make a mistake and not include a separator here.
     // While it's clear that the separator was intended, the parser should behave
@@ -62,7 +91,6 @@ world
       lineNumbers: {
         chunkEnd: 5,
         chunkStart: 0,
-        sequenceNumber: 0,
         text: 2,
         timeSpan: 1,
       },
@@ -118,6 +146,23 @@ test('parseTimeStamp: successful conversions', () => {
   ].forEach(datum => {
     expect(parseTimeStamp(datum.str)).toEqual(datum.expected);
   });
+});
+
+test('Failure: missing time span', () => {
+  expect(() =>
+    SRTParser.parse(`1
+
+hello
+  `)
+  ).toThrowError(new ParseError('Missing time span', 2));
+});
+
+test('Failure: invalid time span', () => {
+  expect(() =>
+    SRTParser.parse(`1
+00:00:00,000 -->
+hello`)
+  ).toThrowError(new ParseError('Invalid time span: 00:00:00,000 -->', 2));
 });
 
 test('Failure: invalid sequence number', () => {

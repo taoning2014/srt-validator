@@ -17,7 +17,7 @@ export default class CaptionTimeSpanValidator extends BaseValidator {
           this._addToResult({
             errorCode: ERROR_CODE.VALIDATOR_ERROR_START_TIME,
             message: 'start time should be less than end time',
-            lineNumber: lineNumbers.timeSpan + 1,
+            lineNumber: lineNumbers.timeSpan + 1, // lineNumber is 0-indexed
           });
         }
 
@@ -33,7 +33,7 @@ export default class CaptionTimeSpanValidator extends BaseValidator {
           this._addToResult({
             errorCode: ERROR_CODE.VALIDATOR_ERROR_END_TIME,
             message: 'start time should be less than previous end time',
-            lineNumber: lineNumbers.timeSpan + 1,
+            lineNumber: lineNumbers.timeSpan + 1, // lineNumber is 0-indexed
           });
         }
 
