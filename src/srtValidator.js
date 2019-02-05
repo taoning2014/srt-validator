@@ -19,7 +19,9 @@ export default function srtValidator(srtString) {
   try {
     parsedObj = SRTParser.parse(srtString);
   } catch (error) {
-    result.push(error);
+    // grab the details from the ParseError
+    const { message, lineNumber, errorCode } = error;
+    result.push({ message, lineNumber, errorCode });
   }
 
   if (result.length) {

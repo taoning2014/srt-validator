@@ -19,7 +19,6 @@ export default function parse(file) {
     const lineNumbers = { chunkStart: i };
 
     // First line
-    lineNumbers.sequenceNumber = i;
     const sequenceNumber = parseSequenceNumber(lines[i], i);
 
     // Second line
@@ -99,7 +98,7 @@ function parseSequenceNumber(sequenceNumber, lineNumber) {
 function parseTimeSpan(timeSpan, lineNumber) {
   if (!timeSpan) {
     throw new ParseError(
-      `Missing time span: ${timeSpan}`,
+      `Missing time span`,
       lineNumber,
       ERROR_CODE.PARSER_ERROR_MISSING_TIME_SPAN
     );

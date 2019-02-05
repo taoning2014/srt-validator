@@ -15,22 +15,21 @@ export default class LineNumberValidator extends BaseValidator {
       this._addToResult({
         errorCode: ERROR_CODE.VALIDATOR_ERROR_SEQUENCE_NUMBER_START,
         message: 'number of sequence need to start with 1',
-        lineNumber: this.parsedJSON[0].sequenceNumber + 1,
+        lineNumber: this.parsedJSON[0].lineNumbers.chunkStart + 1, // lineNumber is 0-indexed
       });
     }
 
-    // need to increment by 1
-    // todo: refactor to reduce
-    this.parsedJSON.map((obj, index) => {
-      const { sequenceNumber, lineNumbers } = obj;
-      if (sequenceNumber !== index + 1) {
+    // start at index 1, because we already validated the first sequence
+    for (let i = 1; i < this.parsedJSON.length; i++) {
+      const { sequenceNumber, lineNumbers } = this.parsedJSON[i];
+      if (sequenceNumber !== i + 1) {
         this._addToResult({
           errorCode: ERROR_CODE.VALIDATOR_ERROR_SEQUENCE_NUMBER_INCREMENT,
           message: 'number of sequence need to increment by 1',
-          lineNumber: lineNumbers.sequenceNumber + 1,
+          lineNumber: lineNumbers.chunkStart + 1, // lineNumber is 0-indexed
         });
       }
-    });
+    }
 
     return this.result;
   }
