@@ -3,7 +3,7 @@ import ParseError from './parseerror';
 import { toMS } from './date';
 
 const EOL = /\r?\n/;
-const TIME_STAMP_REGEX = /(\d+):(\d{1,2}):(\d{1,2})[,\.](\d{1,3})/;
+const TIME_STAMP_REGEX = /^(\d{2}):(\d{2}):(\d{2}),(\d{3})$/;
 
 /**
  * Parses a given SRT file contents

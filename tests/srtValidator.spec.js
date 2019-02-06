@@ -69,35 +69,14 @@ sup?
   ]);
 });
 
-test('Failure: time spans are invalid if start time is after finish time', () => {
-  const input = `1
-  00:00:00,000 --> 00:00:00,001
-  hello
-
-  2
-  00:00:00,002 --> 00:00:00,001
-  world
-  `;
-
-  expect(srtValidator(input)).toEqual([
-    {
-      errorCode: 'validatorErrorStartTime',
-      lineNumber: 6,
-      message: 'start time should be less than end time',
-      validator: 'CaptionTimeSpanValidator',
-    },
-  ]);
-});
-
 test('Failure: time spans are invalid if start time is after end time', () => {
   const input = `1
-  00:00:00,000 --> 00:00:00,001
-  hello
+00:00:00,000 --> 00:00:00,001
+hello
 
-  2
-  00:00:00,002 --> 00:00:00,001
-  world
-  `;
+2
+00:00:00,002 --> 00:00:00,001
+world`;
 
   expect(srtValidator(input)).toEqual([
     {
@@ -111,18 +90,17 @@ test('Failure: time spans are invalid if start time is after end time', () => {
 
 test('Failure: time spans are invalid if start time is after previous end time', () => {
   const input = `1
-  00:00:00,000 --> 00:00:00,001
-  hello
-  world
+00:00:00,000 --> 00:00:00,001
+hello
+world
 
-  2
-  00:00:00,001 --> 00:00:00,002
-  sup?
+2
+00:00:00,001 --> 00:00:00,002
+sup?
 
-  3
-  00:00:00,001 --> 00:00:00,003
-  how are you doing?
-  `;
+3
+00:00:00,001 --> 00:00:00,003
+how are you doing?`;
 
   expect(srtValidator(input)).toEqual([
     {
@@ -169,17 +147,42 @@ sup
 });
 
 test('Failure: parse errors from timestamps are returned', () => {
-  const invalidTimestamp = `1
-00:00:00,000 --> 0o:00:00,000
+  const gibberishTimestamp = `1
+00:00:00,000 --> gi:bb:00,ish
 hello
-world
-  `;
+world`;
 
-  expect(srtValidator(invalidTimestamp)).toEqual([
+  expect(srtValidator(gibberishTimestamp)).toEqual([
     {
       errorCode: 'parserErrorInvalidTimeStamp',
       lineNumber: 2,
-      message: 'Invalid time stamp: 0o:00:00,000',
+      message: 'Invalid time stamp: gi:bb:00,ish',
+    },
+  ]);
+
+  const unpaddedTimestamp = `1
+0:0:0,0 --> 0:0:0,1
+hello
+world`;
+
+  expect(srtValidator(unpaddedTimestamp)).toEqual([
+    {
+      errorCode: 'parserErrorInvalidTimeStamp',
+      lineNumber: 2,
+      message: 'Invalid time stamp: 0:0:0,0',
+    },
+  ]);
+
+  const decimalTimeStamp = `1
+00:00:00.000 --> 00:00:00.001
+hello
+world`;
+
+  expect(srtValidator(decimalTimeStamp)).toEqual([
+    {
+      errorCode: 'parserErrorInvalidTimeStamp',
+      lineNumber: 2,
+      message: 'Invalid time stamp: 00:00:00.000',
     },
   ]);
 });
@@ -188,8 +191,7 @@ test('Failure: parse errors from sequence numbers are returned', () => {
   const invalidSequenceInput = `this is clearly not a sequence
 00:00:00,000 --> 00:00:00,001
 hello
-world
-  `;
+world`;
 
   const missingSequenceInput = `1
 00:00:00,000 --> 00:00:00,001
@@ -198,8 +200,19 @@ world
 
 
 00:00:00,001 --> 00:00:00,002
-hi again
-  `;
+hi again`;
+
+  const missingTimeSpan = `1
+
+hello
+world`;
+
+  const missingCaption = `1
+00:00:00,000 --> 00:00:00,001
+
+2
+00:00:00,001 --> 00:00:00,002
+hi again`;
 
   expect(srtValidator(invalidSequenceInput)).toEqual([
     {
@@ -215,6 +228,22 @@ hi again
       errorCode: 'parserErrorMissingSequenceNumber',
       lineNumber: 6,
       message: 'Missing sequence number',
+    },
+  ]);
+
+  expect(srtValidator(missingTimeSpan)).toEqual([
+    {
+      errorCode: 'parserErrorMissingTimeSpan',
+      lineNumber: 2,
+      message: 'Missing time span',
+    },
+  ]);
+
+  expect(srtValidator(missingCaption)).toEqual([
+    {
+      errorCode: 'parserErrorMissingText',
+      lineNumber: 3,
+      message: 'Missing caption text',
     },
   ]);
 });
