@@ -108,12 +108,12 @@ test('Failure: too many separators', () => {
   expect(() =>
     SRTParser.parse(
       `1
-00:00:00,000 --> 00:00:00,00
+00:00:00,000 --> 00:00:00,000
 hello
 
 
 1
-00:00:00,000 --> 00:00:00,00
+00:00:00,000 --> 00:00:00,000
 hello
 `
     )
@@ -128,21 +128,9 @@ test('parseTimeStamp: successful conversions', () => {
     { str: '00:01:00,000', expected: toMS.minute },
     { str: '00:00:01,000', expected: toMS.second },
 
-    // Decimal separated instead of comma (some US editors do this)
-    { str: '00:00:00.000', expected: 0 },
-    { str: '01:00:00.000', expected: toMS.hour },
-    { str: '00:01:00.000', expected: toMS.minute },
-    { str: '00:00:01.000', expected: toMS.second },
-
     // Overflow
     { str: '00:60:00,000', expected: toMS.hour },
     { str: '00:00:60,000', expected: toMS.minute },
-
-    // Unpadded
-    { str: '0:0:0,0', expected: 0 },
-    { str: '1:0:0,0', expected: toMS.hour },
-    { str: '0:1:0,0', expected: toMS.minute },
-    { str: '0:0:1,0', expected: toMS.second },
   ].forEach(datum => {
     expect(parseTimeStamp(datum.str)).toEqual(datum.expected);
   });
@@ -209,6 +197,30 @@ hello`
     )
   ).toThrowError(
     new ParseError('Invalid time stamp: asdf', 1),
+    'end timestamp'
+  );
+
+  // unpadded
+  expect(() =>
+    SRTParser.parse(
+      `1
+0:0:0,0 --> 00:00:00,001
+hello`
+    )
+  ).toThrowError(
+    new ParseError('Invalid time stamp: 0:0:0,0', 1),
+    'end timestamp'
+  );
+
+  // decimal
+  expect(() =>
+    SRTParser.parse(
+      `1
+00:00:00,000 --> 00:00:00.001
+hello`
+    )
+  ).toThrowError(
+    new ParseError('Invalid time stamp: 00:00:00.001', 1),
     'end timestamp'
   );
 });
