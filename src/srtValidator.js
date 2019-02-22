@@ -1,6 +1,6 @@
 import SRTParser from './srtparser';
-import LineNumberValidator from './validators/lineNumberValidator';
 import CaptionTimeSpanValidator from './validators/captionTimeSpanValidator';
+import LineNumberValidator from './validators/lineNumberValidator';
 
 function _runValidator(Validators, parsedObj) {
   return Validators.map(Validator => {
@@ -31,5 +31,6 @@ export default function srtValidator(srtString) {
   result.push(
     ..._runValidator([LineNumberValidator, CaptionTimeSpanValidator], parsedObj)
   );
-  return result;
+
+  return result.sort((a, b) => a.lineNumber - b.lineNumber);
 }

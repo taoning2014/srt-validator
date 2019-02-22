@@ -12,6 +12,31 @@ world`;
   expect(srtValidator(input)).toEqual([]);
 });
 
+test('Failure: error message should be sorted by line number', () => {
+  const input = `1
+00:00:00,010 --> 00:00:00,001
+hello
+
+1
+00:00:00,001 --> 00:00:00,002
+world`;
+
+  expect(srtValidator(input)).toEqual([
+    {
+      errorCode: 'validatorErrorStartTime',
+      lineNumber: 2,
+      message: 'start time should be less than end time',
+      validator: 'CaptionTimeSpanValidator',
+    },
+    {
+      errorCode: 'validatorErrorSequenceNumberIncrement',
+      lineNumber: 5,
+      message: 'number of sequence need to increment by 1',
+      validator: 'LineNumberValidator',
+    },
+  ]);
+});
+
 test('Failure: sequence numbers are invalid if they do not start at 1', () => {
   const input = `2
 00:00:00,000 --> 00:00:00,001
