@@ -40,6 +40,45 @@ world`
   ]);
 });
 
+test('Success: Simple caption file with blank line in the end', () => {
+  expect(
+    SRTParser.parse(
+      `1
+00:00:00,000 --> 00:00:00,001
+hello
+
+2
+00:00:00,001 --> 00:00:00,002
+world
+
+`
+    )
+  ).toEqual([
+    {
+      lineNumbers: {
+        chunkStart: 0,
+        chunkEnd: 2,
+        text: 2,
+        timeSpan: 1,
+      },
+      sequenceNumber: 1,
+      time: { start: 0, end: 1 },
+      text: 'hello',
+    },
+    {
+      lineNumbers: {
+        chunkStart: 4,
+        chunkEnd: 6,
+        text: 6,
+        timeSpan: 5,
+      },
+      sequenceNumber: 2,
+      time: { start: 1, end: 2 },
+      text: 'world',
+    },
+  ]);
+});
+
 test('Success: multiline text', () => {
   expect(
     SRTParser.parse(
@@ -102,6 +141,22 @@ world
 world`,
     },
   ]);
+});
+
+test('Failure: blank line at the beginning of the file', () => {
+  expect(() =>
+    SRTParser.parse(
+      `
+
+1
+00:00:00,000 --> 00:00:00,001
+hello
+
+2
+00:00:00,001 --> 00:00:00,002
+world`
+    )
+  ).toThrowError(new ParseError('Missing sequence number', 0));
 });
 
 test('Failure: too many separators', () => {

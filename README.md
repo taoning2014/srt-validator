@@ -26,6 +26,8 @@ our final approach into Coruscant.
 Very good, Lieutenant.
 ```
 
+## [How to debug](how-to-debug.md)
+
 ## Introductory Examples
 
 This library exposes just one function which takes a string as an input. The output is an array of error objects. If the array is empty then there are no errors and the SRT is valid.

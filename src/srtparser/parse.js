@@ -11,7 +11,7 @@ const TIME_STAMP_REGEX = /^(\d{2}):(\d{2}):(\d{2}),(\d{3})$/;
  * @return {Array} - A list of subtitle metadata
  */
 export default function parse(file) {
-  const lines = file.split(EOL);
+  const lines = file.trimEnd().split(EOL);
 
   const result = [];
 

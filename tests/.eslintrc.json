@@ -1,0 +1,12 @@
+{
+  "extends": ["eslint-config-airbnb-base", "plugin:prettier/recommended"],
+  "env": {
+    "browser": true,
+    "jest/globals": true
+  },
+  "plugins": ["jest"],
+  "rules": {
+    "import/no-unresolved": "off",
+    "import/extensions": "off"
+  }
+}

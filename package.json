@@ -38,7 +38,10 @@
       "@babel/env"
     ]
   },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "keywords": [],
-  "author": "Sean Johnson & Tao Ning",
+  "author": "Sean Johnson & Tao Ning & Sam Lau",
   "license": "BSD-3-Clause"
 }
