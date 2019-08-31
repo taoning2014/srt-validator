@@ -43,5 +43,10 @@
   },
   "keywords": [],
   "author": "Sean Johnson & Tao Ning & Sam Lau",
-  "license": "BSD-3-Clause"
+  "license": "BSD-3-Clause",
+  "homepage": "https://github.com/taoning2014/srt-validator",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:taoning2014/srt-validator.git"
+  }
 }
