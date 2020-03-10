@@ -232,6 +232,30 @@ hello`
   );
 });
 
+test('Failure: invalid time span', () => {
+  const input = [
+    '1',
+    '00:00:00,000 --> 00:00:00,001 ', // trailing whitespace
+    'hello',
+  ].join('\n');
+
+  expect(() => SRTParser.parse(input)).toThrowError(
+    new ParseError('Invalid time span: 00:00:00,000 --> 00:00:00,001 ', 2)
+  );
+});
+
+test('Failure: invalid sequence number', () => {
+  const input = [
+    '1 ', // trailing whitespace
+    '00:00:00,000 --> 00:00:00,001',
+    'hello',
+  ].join('\n');
+
+  expect(() => SRTParser.parse(input)).toThrowError(
+    new ParseError('Expected Integer for sequence number: 1 ', 0)
+  );
+});
+
 test('Failure: invalid time stamp', () => {
   expect(() =>
     SRTParser.parse(

@@ -3,6 +3,7 @@ import ParseError from './parseerror';
 import { toMS } from './date';
 
 const EOL = /\r?\n/;
+const TRAILING_WHITE_SPACE = /\s$/;
 const TIME_STAMP_REGEX = /^(\d{2}):(\d{2}):(\d{2}),(\d{3})$/;
 
 /**
@@ -72,8 +73,12 @@ function parseSequenceNumber(sequenceNumber, lineNumber) {
       ERROR_CODE.PARSER_ERROR_MISSING_SEQUENCE_NUMBER
     );
   }
+
   const _sequenceNumber = Number(sequenceNumber);
-  if (!Number.isInteger(_sequenceNumber)) {
+  if (
+    !Number.isInteger(_sequenceNumber) ||
+    TRAILING_WHITE_SPACE.test(sequenceNumber)
+  ) {
     throw new ParseError(
       `Expected Integer for sequence number: ${sequenceNumber}`,
       lineNumber,
@@ -104,7 +109,7 @@ function parseTimeSpan(timeSpan, lineNumber) {
     );
   }
   const [start, end] = timeSpan.split(' --> ');
-  if (!start || !end) {
+  if (!start || !end || TRAILING_WHITE_SPACE.test(timeSpan)) {
     throw new ParseError(
       `Invalid time span: ${timeSpan}`,
       lineNumber,
