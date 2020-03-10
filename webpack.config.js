@@ -6,7 +6,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'srtValidator.js',
     library: 'srtValidator',
-    libraryTarget: 'amd',
+    libraryTarget: 'umd',
   },
   resolve: {
     alias: {
