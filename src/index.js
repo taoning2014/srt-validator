@@ -12,7 +12,7 @@ function _runValidator(Validators, parsedObj) {
   }, []);
 }
 
-export default function srtValidator(srtString) {
+function srtValidator(srtString) {
   const result = [];
   let parsedObj;
 
@@ -33,4 +33,10 @@ export default function srtValidator(srtString) {
   );
 
   return result.sort((a, b) => a.lineNumber - b.lineNumber);
-}
+};
+
+export const validator = srtValidator;
+export const parser = SRTParser;
+
+// Default validator for backwards compatibility
+export default srtValidator;
