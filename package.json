@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/srtValidator.js",
   "engines": {
-    "node": ">= 11 < 12"
+    "node": ">= 11"
   },
   "scripts": {
     "build": "./node_modules/.bin/webpack",
