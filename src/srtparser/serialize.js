@@ -21,11 +21,6 @@ export default function serialize(srtChunks, format = 'SRT') {
         ...options,
         FILE_HEADER: `WEBVTT${EOL}${EOL}`,
         MS_SEPERATOR: '.',
-        FORMAT_TEXT: text =>
-          text
-            .split(EOL)
-            .map(line => `- ${line}`)
-            .join(EOL),
       };
       break;
     case 'srt':

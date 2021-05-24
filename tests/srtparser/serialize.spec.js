@@ -31,13 +31,13 @@ test('Success: simple serialization (WebVTT)', () => {
 
 1
 00:00:00.000 --> 00:00:00.001
-- It
-- is
-- wednesday
+It
+is
+wednesday
 
 2
 00:00:00.001 --> 01:01:01.001
-- My dudes`;
+My dudes`;
 
   expect(
     SRTParser.serialize(
