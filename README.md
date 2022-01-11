@@ -5,7 +5,7 @@
 [![npm version](https://badge.fury.io/js/srt-validator.svg)](https://badge.fury.io/js/srt-validator)
 [![Downloads](https://img.shields.io/github/downloads/taoning2014/srt-validator/total.svg)](https://www.npmjs.com/package/srt-validator)
 
-This library exposes one util function `srtValidator(input)` which takes a string as an input and validates it against the [SRT spec](../srt-validator/doc/srt-spec.md).
+This library exposes one util function `srtValidator(input)` which takes a string as an input and validates it against the [SRT spec](doc/srt-spec.md).
 
 ## Installing
 
@@ -68,5 +68,5 @@ This will return:
 
 ## Documentation
 
-- [Errors return by `srtValidator`](../srt-validator/doc/types-of-errors.md)
-- [How to debug](../srt-validator/doc/how-to-debug.md)
+- [Errors return by `srtValidator`](doc/types-of-errors.md)
+- [How to debug](doc/how-to-debug.md)
