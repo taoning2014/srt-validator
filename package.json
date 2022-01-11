@@ -1,6 +1,6 @@
 {
   "name": "srt-validator",
-  "version": "3.2.3",
+  "version": "4.0.0",
   "description": "",
   "main": "dist/srtValidator.js",
   "engines": {
@@ -19,23 +19,23 @@
     "precommit:test"
   ],
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.42",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.42",
-    "@babel/preset-env": "^7.0.0-beta.42",
-    "babel-jest": "^24.0.0",
-    "babel-loader": "^8.0.0-beta.2",
+    "@babel/core": "^7.16.7",
+    "@babel/plugin-proposal-object-rest-spread": "^7.16.7",
+    "@babel/preset-env": "^7.16.8",
+    "babel-jest": "^27.4.6",
+    "babel-loader": "^8.2.3",
     "babel-plugin-add-module-exports": "^1.0.4",
-    "eslint": "^4.9.0",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-config-prettier": "^2.6.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jest": "^22.2.2",
-    "eslint-plugin-prettier": "^2.3.1",
-    "jest": "^24.0.0",
+    "eslint": "^8.6.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^25.3.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.4.7",
     "pre-commit": "^1.2.2",
-    "prettier": "^1.8.2",
-    "webpack": "^4.17.1",
-    "webpack-cli": "^3.1.0"
+    "prettier": "^2.5.1",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1"
   },
   "babel": {
     "presets": [
