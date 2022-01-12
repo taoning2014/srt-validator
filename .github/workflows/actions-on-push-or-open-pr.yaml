@@ -3,7 +3,7 @@
 
 name: Actions On Push and Opening PR
 
-on: [push, pull_request]
+on: push
 
 jobs:
   build:
