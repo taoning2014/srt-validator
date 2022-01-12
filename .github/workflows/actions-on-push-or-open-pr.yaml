@@ -3,11 +3,7 @@
 
 name: Actions On Push and Opening PR
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: push
 
 jobs:
   build:
@@ -26,5 +22,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: npm install
     - run: npm run build
     - run: npm test
