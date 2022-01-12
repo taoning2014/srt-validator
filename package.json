@@ -7,7 +7,7 @@
     "node": ">= 11"
   },
   "scripts": {
-    "build": "npm install && ./node_modules/.bin/webpack",
+    "build": "./node_modules/.bin/webpack",
     "prepublish": "npm run build",
     "precommit:prettier": "./scripts/precommit-prettier.sh",
     "precommit:test": "jest --coverage --changedSince=master",
