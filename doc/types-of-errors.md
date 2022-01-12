@@ -4,13 +4,13 @@
 
 When the sequence number is not an integer:
 
-```
+```srt
 Network
 00:00:00,000 --> 00:00:00,001
 I'm as mad as hell, and I'm not going to take this anymore!"
 ```
 
-```
+```srt
 {
   errorCode: 'parserErrorInvalidSequenceNumber',
   lineNumber: 1,
@@ -21,13 +21,13 @@ I'm as mad as hell, and I'm not going to take this anymore!"
 
 When the first sequence is not 1:
 
-```
+```srt
 2
 00:00:00,000 --> 00:00:00,001
 Louis, I think this is the beginning of a beautiful friendship.
 ```
 
-```
+```srt
 {
   errorCode: 'validatorErrorSequenceNumberStart',
   lineNumber: 1,
@@ -38,7 +38,7 @@ Louis, I think this is the beginning of a beautiful friendship.
 
 When the sequences are not in order:
 
-```
+```srt
 1
 00:00:00,000 --> 00:00:00,001
 You know how to whistle, don't you, Steve?
@@ -48,7 +48,7 @@ You know how to whistle, don't you, Steve?
 You just put your lips together and blow.
 ```
 
-```
+```srt
 {
   errorCode: 'validatorErrorSequenceNumberIncrement',
   lineNumber: 5,
@@ -59,7 +59,7 @@ You just put your lips together and blow.
 
 When the sequence number is missing:
 
-```
+```srt
 1
 00:00:01,000 --> 00:00:02,000
 Badges? We ain't got no badges! We don't need no badges!
@@ -69,7 +69,7 @@ Badges? We ain't got no badges! We don't need no badges!
 I don't have to show you any stinking badges!
 ```
 
-```
+```srt
 {
   errorCode: 'parserErrorMissingSequenceNumber',
   lineNumber: 5,
@@ -81,7 +81,7 @@ I don't have to show you any stinking badges!
 
 When the start of a sequence is after it ends:
 
-```
+```srt
 1
 00:00:00,000 --> 00:00:00,001
 You've got to ask yourself one question: "Do I feel lucky?"
@@ -91,7 +91,7 @@ You've got to ask yourself one question: "Do I feel lucky?"
 Well, do ya, punk?
 ```
 
-```
+```srt
 {
   errorCode: 'validatorErrorStartTime',
   lineNumber: 6,
@@ -102,7 +102,7 @@ Well, do ya, punk?
 
 When the start of one sequence is before the previous sequence's end:
 
-```
+```srt
 1
 00:00:00,000 --> 00:00:00,001
 One morning I shot an elephant in my pajamas.
@@ -116,7 +116,7 @@ How he got in my pajamas...
 I don't know.
 ```
 
-```
+```srt
 {
   errorCode: 'validatorErrorEndTime',
   lineNumber: 10,
@@ -127,13 +127,13 @@ I don't know.
 
 When the time span is missing:
 
-```
+```srt
 1
 
 There's no crying in baseball!
 ```
 
-```
+```srt
 {
   errorCode: 'parserErrorMissingTimeSpan',
   lineNumber: 2,
@@ -145,13 +145,13 @@ There's no crying in baseball!
 
 When the timestamp isn't fixed to two zero-padded digits and fractions fixed to three zero-padded digits:
 
-```
+```srt
 1
 0:0:0,0 --> 0:0:0,1
 A boy's best friend is his mother.
 ```
 
-```
+```srt
 {
   errorCode: 'parserErrorInvalidTimeStamp',
   lineNumber: 2,
@@ -161,13 +161,13 @@ A boy's best friend is his mother.
 
 When the fractional seperator is a period and not a comma:
 
-```
+```srt
 1
 00:00:00.000 --> 00:00:00.001
 Mrs. Robinson, you're trying to seduce me. Aren't you?
 ```
 
-```
+```srt
 {
   errorCode: 'parserErrorInvalidTimeStamp',
   lineNumber: 2,
@@ -179,7 +179,7 @@ Mrs. Robinson, you're trying to seduce me. Aren't you?
 
 When the caption text is missing:
 
-```
+```srt
 1
 00:00:00,000 --> 00:00:00,001
 
@@ -188,7 +188,7 @@ When the caption text is missing:
 My mother thanks you. My father thanks you. My sister thanks you. And I thank you.
 ```
 
-```
+```srt
 {
   errorCode: 'parserErrorMissingText',
   lineNumber: 3,
