@@ -85,7 +85,7 @@ You can debug all tests by following the steps below:
 
 > **Note**: Your breakpoint may not be hit on the first run. If it isn't hit, you can rerun the tests by pressing `a` at the prompt in the Terminal. Or, by adding a `debugger` statement to the top of the script (this just gives vscode time to process the script's sourcemaps when it is loaded).
 
-![all](../public/images/all.gif)
+![all](https://user-images.githubusercontent.com/8691648/149224478-c21ca606-62e5-46ba-aacc-596f7bf985d3.gif)
 
 ## Debugging the current test
 
@@ -97,4 +97,4 @@ You can debug the test you're editing by following the steps below:
 
 3. Your breakpoint will now be hit. (If not, see **Note** above).
 
-![current](../public/images/current.gif)
+![current](https://user-images.githubusercontent.com/8691648/149224517-80ace78d-fa2b-4c78-9179-518679c2866b.gif)
