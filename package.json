@@ -11,7 +11,7 @@
     "prepublish": "npm run build",
     "precommit:prettier": "./scripts/precommit-prettier.sh",
     "precommit:test": "jest --coverage --changedSince=master",
-    "test": "jest --config=./jest.config.js",
+    "test": "jest",
     "test:watch": "npm run test -- --watch"
   },
   "precommit": [
@@ -41,9 +41,6 @@
     "presets": [
       "@babel/env"
     ]
-  },
-  "jest": {
-    "testEnvironment": "node"
   },
   "keywords": [],
   "author": "Sean Johnson & Tao Ning & Sam Lau",
