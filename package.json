@@ -4,19 +4,20 @@
   "description": "",
   "main": "dist/srtValidator.js",
   "engines": {
-    "node": ">= 11"
+    "node": ">= 12.22.0"
   },
   "scripts": {
     "build": "./node_modules/.bin/webpack",
     "prepublish": "npm run build",
-    "precommit:prettier": "./scripts/precommit-prettier.sh",
-    "precommit:test": "jest --coverage --changedSince=master",
-    "test": "jest",
+    "prettier": "./scripts/prettier.sh",
+    "lint": "eslint src/** tests/**",
+    "test": "npm run lint && jest",
     "test:watch": "npm run test -- --watch"
   },
   "precommit": [
-    "precommit:prettier",
-    "precommit:test"
+    "prettier",
+    "lint",
+    "test"
   ],
   "devDependencies": {
     "@babel/core": "^7.16.7",
@@ -30,7 +31,6 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jest": "^25.3.4",
-    "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.4.7",
     "pre-commit": "^1.2.2",
     "prettier": "^2.5.1",
@@ -42,7 +42,13 @@
       "@babel/env"
     ]
   },
-  "keywords": [],
+  "keywords": [
+    "module",
+    "util",
+    "parser",
+    "subtitles",
+    "srt"
+  ],
   "author": "Sean Johnson & Tao Ning & Sam Lau",
   "license": "BSD-3-Clause",
   "homepage": "https://github.com/taoning2014/srt-validator",

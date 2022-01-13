@@ -1,8 +1,8 @@
 {
-  "extends": ["eslint-config-airbnb-base", "plugin:prettier/recommended"],
+  "extends": ["eslint-config-airbnb-base", "prettier"],
   "env": {
     "browser": true,
-    "jest/globals": true
+    "jest": true
   },
   "plugins": ["jest"],
   "rules": {

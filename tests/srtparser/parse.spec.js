@@ -186,7 +186,7 @@ test('parseTimeStamp: successful conversions', () => {
     // Overflow
     { str: '00:60:00,000', expected: toMS.hour },
     { str: '00:00:60,000', expected: toMS.minute },
-  ].forEach(datum => {
+  ].forEach((datum) => {
     expect(parseTimeStamp(datum.str)).toEqual(datum.expected);
   });
 });
@@ -332,7 +332,7 @@ test('parseTimeStamp: unparseable', () => {
     '00::00,000',
     '00:00:,000',
     '00:00:00,',
-  ].forEach(data => {
+  ].forEach((data) => {
     expect(() => parseTimeStamp(data.str)).toThrow();
   });
 });

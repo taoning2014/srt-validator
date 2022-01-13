@@ -3,7 +3,7 @@ import CaptionTimeSpanValidator from './validators/captionTimeSpanValidator';
 import LineNumberValidator from './validators/lineNumberValidator';
 
 function _runValidator(Validators, parsedObj) {
-  return Validators.map(Validator => {
+  return Validators.map((Validator) => {
     const validator = new Validator(parsedObj);
     return validator.validate();
   }).reduce((acc, cur) => {
@@ -33,7 +33,7 @@ function srtValidator(srtString) {
   );
 
   return result.sort((a, b) => a.lineNumber - b.lineNumber);
-};
+}
 
 export const validator = srtValidator;
 export const parser = SRTParser;
