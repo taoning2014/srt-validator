@@ -8,7 +8,6 @@
 [![npm][npm]][npm-url]
 [![node][node]][node-url]
 [![issues][issues]][issues-url]
-[![size][size]][size-url]
 [![license][license]][license-url]
 
 This library exposes one util function `srtValidator(input)` which takes a string as an input and validates it against the [SRT spec][spec].
@@ -87,8 +86,6 @@ This will return:
 [node-url]: https://nodejs.org
 [issues]: https://img.shields.io/github/issues/taoning2014/srt-validator
 [issues-url]:https://github.com/taoning2014/srt-validator/issues
-[size]: https://packagephobia.now.sh/badge?p=srt-validator
-[size-url]: https://packagephobia.now.sh/result?p=srt-validator
 [license]: https://img.shields.io/github/license/taoning2014/srt-validator
 [license-url]: ./LICENSE
 [spec]: ./doc/srt-spec.md
