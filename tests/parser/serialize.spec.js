@@ -1,5 +1,5 @@
-import SRTParser from 'srt-validator/srtparser';
-import { toMS } from 'srt-validator/srtparser/date';
+import SRTParser from '../../src/parser';
+import toMS from '../../src/parser/date';
 
 test('Success: simple serialization', () => {
   const expected = `1
@@ -70,5 +70,5 @@ test('Failure: invalid format', () => {
       ],
       'Gibberish'
     )
-  ).toThrowError(new Error('Unrecognized format: Gibberish'));
+  ).toThrow(new Error('Unrecognized format: Gibberish'));
 });

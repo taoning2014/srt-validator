@@ -1,8 +1,8 @@
-import SRTParser from './srtparser';
-import CaptionTimeSpanValidator from './validators/captionTimeSpanValidator';
-import LineNumberValidator from './validators/lineNumberValidator';
+import SRTParser from './parser';
+import CaptionTimeSpanValidator from './validators/caption-time-span-validator';
+import LineNumberValidator from './validators/line-number-validator';
 
-function _runValidator(Validators, parsedObj) {
+function runValidator(Validators, parsedObj) {
   return Validators.map((Validator) => {
     const validator = new Validator(parsedObj);
     return validator.validate();
@@ -29,7 +29,7 @@ function srtValidator(srtString) {
   }
 
   result.push(
-    ..._runValidator([LineNumberValidator, CaptionTimeSpanValidator], parsedObj)
+    ...runValidator([LineNumberValidator, CaptionTimeSpanValidator], parsedObj)
   );
 
   return result.sort((a, b) => a.lineNumber - b.lineNumber);

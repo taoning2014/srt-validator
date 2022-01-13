@@ -1,20 +1,3 @@
 {
-  "extends": ["eslint-config-airbnb-base", "prettier"],
-  "env": {
-    "browser": true,
-    "jest": true
-  },
-  "plugins": ["jest"],
-  "rules": {
-    "no-unused-vars": "warn",
-    "no-useless-escape": "warn",
-    "func-names": "off",
-    "no-underscore-dangle": "off",
-    "class-methods-use-this": "warn",
-    "array-callback-return": "warn",
-    "consistent-return": "warn",
-    "no-use-before-define": "warn",
-    "no-plusplus": "warn",
-    "import/prefer-default-export": "warn"
-  }
+  "extends": ["eslint-config-airbnb-base", "prettier"]
 }

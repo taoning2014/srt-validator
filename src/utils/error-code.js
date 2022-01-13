@@ -1,4 +1,4 @@
-export const ERROR_CODE = {
+export default {
   PARSER_ERROR_MISSING_TEXT: 'parserErrorMissingText',
   PARSER_ERROR_MISSING_SEQUENCE_NUMBER: 'parserErrorMissingSequenceNumber',
   PARSER_ERROR_INVALID_SEQUENCE_NUMBER: 'parserErrorInvalidSequenceNumber',

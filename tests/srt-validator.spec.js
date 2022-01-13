@@ -1,4 +1,4 @@
-import srtValidator from 'srt-validator/index';
+import srtValidator from '../src/index';
 
 test('Success: empty array is returned when there are no errors', () => {
   const input = `1

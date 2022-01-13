@@ -1,12 +1,4 @@
 {
-  "extends": ["eslint-config-airbnb-base", "prettier"],
-  "env": {
-    "browser": true,
-    "jest": true
-  },
-  "plugins": ["jest"],
-  "rules": {
-    "import/no-unresolved": "off",
-    "import/extensions": "off"
-  }
+  "extends": ["plugin:jest/recommended", "plugin:jest/style"],
+  "plugins": ["jest"]
 }

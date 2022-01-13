@@ -5,6 +5,7 @@ export default class BaseValidator {
   }
 
   // Need to be Override
+  // eslint-disable-next-line consistent-return
   validate() {
     if (!this.parsedJSON.length) {
       return this.result;
@@ -12,12 +13,12 @@ export default class BaseValidator {
   }
 
   // Push to result
-  _addToResult({ message = '', lineNumber, errorCode }) {
+  addToResult({ message = '', lineNumber, errorCode }) {
     this.result.push({
       errorCode,
       message,
       lineNumber,
-      validator: this._validator,
+      validator: this.validator,
     });
   }
 }
