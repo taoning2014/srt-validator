@@ -22,13 +22,10 @@ jobs:
       - run: npm install
       - run: npm run build
       - run: npm test
-
-  codecov:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Codecov
+      - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.codecov_token }}
+          direction: ./coverage
+          files: ./clover.xml
           flags: unittests
