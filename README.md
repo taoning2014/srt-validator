@@ -10,7 +10,20 @@
 [![issues][issues]][issues-url]
 [![license][license]][license-url]
 
-This library exposes one util function `srtValidator(input)` which takes a string as an input and validates it against the [SRT spec][spec].
+SRT file (also known as SubRip Subtitle file) is a plain-text file that contains subtitles with the start and end timecodes of the text to ensure the subtitles match the audio. It also inclues the sequential number of subtitles. A sample SRT looks like this:
+
+```srt
+1
+00:02:17,440 --> 00:02:20,375
+Senator, we're making
+our final approach into Coruscant.
+
+2
+00:02:20,476 --> 00:02:22,501
+Very good, Lieutenant.
+```
+
+This library exposes one util function `srtValidator(input)` which takes a string as an input and validates it against the [SRT spec][srt-spec].
 
 ## Installing
 
@@ -27,8 +40,7 @@ The output of the util function `srtValidator(input)` is an array of error objec
 ```js
 import srtValidator from 'srt-validator';
 
-const srtString =
-`1
+const srtString = `1
 00:02:17,440 --> 00:02:20,375
 Senator, we're making
 our final approach into Coruscant.
@@ -43,7 +55,7 @@ srtValidator(srtString);
 This will return:
 
 ```js
-[]
+[];
 ```
 
 ### Invalid SRT
@@ -51,8 +63,7 @@ This will return:
 ```js
 import srtValidator from 'srt-validator';
 
-const srtString =
-`1
+const srtString = `1
 02:01:17,440 --> 02:00:20,375
 Forget it, Jake.
 It's Chinatown.`;
@@ -63,12 +74,14 @@ srtValidator(srtString);
 This will return:
 
 ```js
-[{
-  errorCode: 'validatorErrorStartTime',
-  lineNumber: 2,
-  message: 'start time should be less than end time',
-  validator: 'CaptionTimeSpanValidator',
-}]
+[
+  {
+    errorCode: 'validatorErrorStartTime',
+    lineNumber: 2,
+    message: 'start time should be less than end time',
+    validator: 'CaptionTimeSpanValidator',
+  },
+];
 ```
 
 ## Documentation
@@ -78,16 +91,16 @@ This will return:
 
 ## Attribution
 
-- *The SRT icon in this file is made by [iconixar](https://www.flaticon.com/authors/iconixar) from [Flaticon](https://www.flaticon.com)*
+- _The SRT icon in this file is made by [iconixar](https://www.flaticon.com/authors/iconixar) from [Flaticon](https://www.flaticon.com)_
 
 [npm]: https://img.shields.io/npm/v/srt-validator.svg
 [npm-url]: https://www.npmjs.com/package/srt-validator
 [node]: https://img.shields.io/node/v/srt-validator.svg
 [node-url]: https://nodejs.org
 [issues]: https://img.shields.io/github/issues/taoning2014/srt-validator
-[issues-url]:https://github.com/taoning2014/srt-validator/issues
+[issues-url]: https://github.com/taoning2014/srt-validator/issues
 [license]: https://img.shields.io/github/license/taoning2014/srt-validator
 [license-url]: ./LICENSE
-[spec]: ./doc/srt-spec.md
+[srt-spec]: ./doc/srt-spec.md
 [types-of-errors]: ./doc/types-of-errors.md
 [how-to-debug]: ./doc/how-to-debug.md
