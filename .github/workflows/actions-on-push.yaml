@@ -26,6 +26,6 @@ jobs:
         uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.codecov_token }}
-          direction: ./coverage
+          directory: ./coverage
           files: ./clover.xml
           flags: unittests
