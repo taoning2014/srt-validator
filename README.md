@@ -9,6 +9,7 @@
 [![node][node]][node-url]
 [![issues][issues]][issues-url]
 [![license][license]][license-url]
+[![jest][jest]][jest-url]
 [![codecov][codecov]][codecov-url]
 
 SRT file (also known as SubRip Subtitle file) is a plain-text file that contains subtitles with the start and end timecodes of the text to ensure the subtitles match the audio. It also inclues the sequential number of subtitles. A sample SRT looks like this:
@@ -94,6 +95,10 @@ This will return:
 
 - _The SRT icon in this file is made by [iconixar](https://www.flaticon.com/authors/iconixar) from [Flaticon](https://www.flaticon.com)_
 
+## License
+
+srt-validator is [MIT licensed](./LICENSE).
+
 [npm]: https://img.shields.io/npm/v/srt-validator.svg
 [npm-url]: https://www.npmjs.com/package/srt-validator
 [node]: https://img.shields.io/node/v/srt-validator.svg
@@ -102,6 +107,8 @@ This will return:
 [issues-url]: https://github.com/taoning2014/srt-validator/issues
 [license]: https://img.shields.io/github/license/taoning2014/srt-validator
 [license-url]: ./LICENSE
+[jest]: https://img.shields.io/badge/tested_with-jest-99424f.svg
+[jest-url]: https://github.com/facebook/jest
 [codecov]: https://codecov.io/gh/taoning2014/srt-validator/branch/master/graph/badge.svg?token=rnNON8Fd6g
 [codecov-url]: https://app.codecov.io/gh/taoning2014/srt-validator
 [srt-spec]: ./doc/srt-spec.md
