@@ -3,7 +3,7 @@ module.exports = {
   collectCoverageFrom: ['src/**/*.js'],
   verbose: true,
   transform: {
-    '^.+\\.jsx?$': 'babel-jest',
+    '^.+\\.js$': 'babel-jest',
   },
   moduleNameMapper: {
     'srt-validator(.*)$': '<rootDir>/src/$1',
