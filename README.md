@@ -9,6 +9,7 @@
 [![node][node]][node-url]
 [![issues][issues]][issues-url]
 [![license][license]][license-url]
+[![codecov][codecov]][codecov-url]
 
 SRT file (also known as SubRip Subtitle file) is a plain-text file that contains subtitles with the start and end timecodes of the text to ensure the subtitles match the audio. It also inclues the sequential number of subtitles. A sample SRT looks like this:
 
@@ -101,6 +102,8 @@ This will return:
 [issues-url]: https://github.com/taoning2014/srt-validator/issues
 [license]: https://img.shields.io/github/license/taoning2014/srt-validator
 [license-url]: ./LICENSE
+[codecov]: https://codecov.io/gh/taoning2014/srt-validator/branch/master/graph/badge.svg?token=rnNON8Fd6g
+[codecov-url]: https://app.codecov.io/gh/taoning2014/srt-validator
 [srt-spec]: ./doc/srt-spec.md
 [types-of-errors]: ./doc/types-of-errors.md
 [how-to-debug]: ./doc/how-to-debug.md
