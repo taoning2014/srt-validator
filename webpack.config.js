@@ -23,7 +23,15 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [['@babel/preset-env', { modules: 'umd' }]],
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  modules: 'umd',
+                  targets: ['last 2 versions', '> 1%'],
+                },
+              ],
+            ],
             plugins: ['add-module-exports'],
           },
         },
