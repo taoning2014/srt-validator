@@ -1,0 +1,5 @@
+extends:
+  - plugin:jest/recommended
+  - plugin:jest/style
+plugins:
+  - jest
