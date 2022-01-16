@@ -6,7 +6,7 @@ name: Actions To Publish On NPM
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
