@@ -1,8 +1,3 @@
-<div align="center">
-  <img width="200" height="200"
-    src="https://user-images.githubusercontent.com/8691648/149093190-2f610184-e96c-4f8f-b423-d9afee704c1d.png">
-</div>
-
 # SrtValidator
 
 [![npm][npm]][npm-url]
@@ -14,6 +9,34 @@
 [![code-style][code-style]][code-style-url]
 [![build-and-test][build-and-test]][build-and-test-url]
 [![publish-to-npm][publish-to-npm]][publish-to-npm-url]
+
+<br />
+
+<div align="center">
+  <img width="200" height="200"
+    src="https://user-images.githubusercontent.com/8691648/149093190-2f610184-e96c-4f8f-b423-d9afee704c1d.png">
+    <br />
+    <br />
+    <a href="https://github.com/taoning2014/srt-validator#installation">Installation</a>
+    ·
+    <a href="https://github.com/taoning2014/srt-validator/issues/new?assignees=taoning2014&labels=bug&template=bug_report.md">Report Bug</a>
+    ·
+    <a href="https://github.com/taoning2014/srt-validator/issues/new?assignees=taoning2014&labels=enhancement&template=feature_request.md">Request Feature</a>  
+</div>
+
+## Installation
+
+```bash
+yarn add srt-validator
+```
+
+Or
+
+```bash
+npm install srt-validator --save
+```
+
+## Examples
 
 SRT file (also known as SubRip Subtitle file) is a plain-text file that contains subtitles with the start and end timecodes of the text to ensure the subtitles match the audio. It also inclues the sequential number of subtitles. A sample SRT looks like this:
 
@@ -28,17 +51,7 @@ our final approach into Coruscant.
 Very good, Lieutenant.
 ```
 
-This library exposes one util function `srtValidator(input)` which takes a string as an input and validates it against the [SRT spec][srt-spec].
-
-## Installing
-
-```bash
-npm install srt-validator --save
-```
-
-## Examples
-
-The output of the util function `srtValidator(input)` is an array of error objects. If the array is empty then there are no errors and the SRT is valid.
+This library only exposes a single util function `srtValidator(input)` which takes a string as an input and validates it against the [SRT spec][srt-spec]. The output of this function is an array of error objects. If the array is empty then there are no errors and the SRT is valid.
 
 ### Valid SRT
 
@@ -100,7 +113,7 @@ This will return:
 
 ## License
 
-srt-validator is [MIT licensed](./LICENSE).
+[MIT licensed](./LICENSE).
 
 [npm]: https://img.shields.io/npm/v/srt-validator.svg
 [npm-url]: https://www.npmjs.com/package/srt-validator
