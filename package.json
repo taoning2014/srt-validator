@@ -1,6 +1,6 @@
 {
   "name": "srt-validator",
-  "version": "5.1.2",
+  "version": "5.1.3",
   "description": "",
   "main": "dist/srtValidator.js",
   "engines": {
@@ -12,12 +12,14 @@
     "prettier": "./scripts/prettier.sh",
     "lint": "eslint src/** tests/**",
     "test": "npm run lint && jest",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "bump:patch": "npm version patch --no-git-tag-version && git add package.json"
   },
   "precommit": [
     "prettier",
     "lint",
-    "test"
+    "test",
+    "bump:patch"
   ],
   "devDependencies": {
     "@babel/core": "^7.16.7",
