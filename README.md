@@ -11,6 +11,7 @@
 [![license][license]][license-url]
 [![jest][jest]][jest-url]
 [![codecov][codecov]][codecov-url]
+[![code-style][code-style]][code-style-url]
 [![build-and-test][build-and-test]][build-and-test-url]
 [![publish-to-npm][publish-to-npm]][publish-to-npm-url]
 
@@ -114,9 +115,11 @@ srt-validator is [MIT licensed](./LICENSE).
 [codecov]: https://codecov.io/gh/taoning2014/srt-validator/branch/master/graph/badge.svg?token=rnNON8Fd6g
 [codecov-url]: https://app.codecov.io/gh/taoning2014/srt-validator
 [build-and-test]: https://github.com/taoning2014/srt-validator/actions/workflows/build-and-test.yaml/badge.svg
-[build-and-test-url]: https://github.com/taoning2014/srt-validator/actions/workflows/build-and-test.yaml
 [publish-to-npm]: https://github.com/taoning2014/srt-validator/actions/workflows/publish-to-npm.yaml/badge.svg
+[build-and-test-url]: https://github.com/taoning2014/srt-validator/actions/workflows/build-and-test.yaml
 [publish-to-npm-url]: https://github.com/taoning2014/srt-validator/actions/workflows/publish-to-npm.yaml
+[code-style]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg
+[code-style-url]: https://github.com/prettier/prettier
 [srt-spec]: ./doc/srt-spec.md
 [types-of-errors]: ./doc/types-of-errors.md
 [how-to-debug]: ./doc/how-to-debug.md
