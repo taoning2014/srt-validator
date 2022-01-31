@@ -1,6 +1,7 @@
-import ERROR_CODE from '../utils/error-code';
-import ParseError from './parse-error';
+import ErrorCode from '../utils/error-code';
+import ParseError from '../utils/parse-error';
 import toMS from './date';
+import { Parsed } from '../utils/types';
 
 const EOL = /\r?\n/;
 const TRAILING_WHITE_SPACE = /\s$/;
@@ -12,12 +13,12 @@ const TIME_STAMP_REGEX = /^(\d{2}):(\d{2}):(\d{2}),(\d{3})$/;
  * @param  {Number} lineNumber - The line number currently being parsed
  * @return {Number}
  */
-function parseSequenceNumber(sequenceNumber, lineNumber) {
+function parseSequenceNumber(sequenceNumber: string, lineNumber: number) {
   if (!sequenceNumber) {
     throw new ParseError(
       `Missing sequence number`,
       lineNumber,
-      ERROR_CODE.PARSER_ERROR_MISSING_SEQUENCE_NUMBER
+      ErrorCode.PARSER_ERROR_MISSING_SEQUENCE_NUMBER
     );
   }
 
@@ -29,7 +30,7 @@ function parseSequenceNumber(sequenceNumber, lineNumber) {
     throw new ParseError(
       `Expected Integer for sequence number: ${sequenceNumber}`,
       lineNumber,
-      ERROR_CODE.PARSER_ERROR_INVALID_SEQUENCE_NUMBER
+      ErrorCode.PARSER_ERROR_INVALID_SEQUENCE_NUMBER
     );
   }
   return sequenceNum;
@@ -46,13 +47,13 @@ function parseSequenceNumber(sequenceNumber, lineNumber) {
  * @param  {Number} lineNumber - The line number currently being parsed
  * @return {Number}
  */
-export function parseTimeStamp(timeStamp, lineNumber) {
+export function parseTimeStamp(timeStamp: string, lineNumber: number) {
   const match = TIME_STAMP_REGEX.exec(timeStamp);
   if (!match) {
     throw new ParseError(
       `Invalid time stamp: ${timeStamp}`,
       lineNumber,
-      ERROR_CODE.PARSER_ERROR_INVALID_TIME_STAMP
+      ErrorCode.PARSER_ERROR_INVALID_TIME_STAMP
     );
   }
   const [hours, minutes, seconds, millis] = match.slice(1).map(Number);
@@ -73,12 +74,12 @@ export function parseTimeStamp(timeStamp, lineNumber) {
  * @param  {Number} lineNumber - The line number currently being parsed
  * @return {Object}
  */
-function parseTimeSpan(timeSpan, lineNumber) {
+function parseTimeSpan(timeSpan: string, lineNumber: number) {
   if (!timeSpan) {
     throw new ParseError(
       `Missing time span`,
       lineNumber,
-      ERROR_CODE.PARSER_ERROR_MISSING_TIME_SPAN
+      ErrorCode.PARSER_ERROR_MISSING_TIME_SPAN
     );
   }
   const [start, end] = timeSpan.split(' --> ');
@@ -86,7 +87,7 @@ function parseTimeSpan(timeSpan, lineNumber) {
     throw new ParseError(
       `Invalid time span: ${timeSpan}`,
       lineNumber,
-      ERROR_CODE.PARSER_ERROR_INVALID_TIME_SPAN
+      ErrorCode.PARSER_ERROR_INVALID_TIME_SPAN
     );
   }
   return {
@@ -97,16 +98,16 @@ function parseTimeSpan(timeSpan, lineNumber) {
 
 /**
  * Parses a given SRT file contents
- * @param  {String} file - Contents of an SRT file
+ * @param  {String} file - Contents of an SRT file in the string format
  * @return {Array} - A list of subtitle metadata
  */
-export default function parse(file) {
+export default function parse(file: string) {
   const lines = file.trimEnd().split(EOL);
 
-  const result = [];
+  const result: Parsed[] = [];
 
   for (let i = 0; i < lines.length; i += 1) {
-    const lineNumbers = { chunkStart: i };
+    const lineNumbers = { chunkStart: i, timeSpan: i, text: i, chunkEnd: i };
 
     // First line
     const sequenceNumber = parseSequenceNumber(lines[i], i);
@@ -131,7 +132,7 @@ export default function parse(file) {
       throw new ParseError(
         `Missing caption text`,
         i,
-        ERROR_CODE.PARSER_ERROR_MISSING_TEXT
+        ErrorCode.PARSER_ERROR_MISSING_TEXT
       );
     }
 
