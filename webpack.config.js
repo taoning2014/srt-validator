@@ -6,11 +6,12 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'srtValidator.js',
+    library: { name: 'srtValidator', type: 'umd' },
   },
   module: {
-    rules: [{ test: /\.ts$/, loader: 'ts-loader' }],
+    rules: [{ test: /\.ts$/, use: 'ts-loader', exclude: /node_modules/ }],
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
+    extensions: ['.ts', '.js'],
   },
 };
