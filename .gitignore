@@ -2,10 +2,3 @@
 /dist
 /coverage
 .DS_Store
-Thumbs.db
-.idea/
-.vscode/
-*.sublime-project
-*.sublime-workspace
-*.log
-package-lock.json
