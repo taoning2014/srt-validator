@@ -1,6 +1,8 @@
 import toMS from './date';
+import { Parsed, Time } from '../utils/types';
 
 const EOL = '\n';
+type MsSeperator = ',' | '.';
 
 /**
  * Given a timestamp ()
@@ -9,7 +11,7 @@ const EOL = '\n';
  * @param  {Integer} timeStamp - Timestamp in microseconds
  * @return {String} - A string representation of the timestamp in SRT format
  */
-function serializeTimeStamp(timeStamp, options) {
+function serializeTimeStamp(timeStamp: number, msSeperator: MsSeperator) {
   let remainder = timeStamp;
   const hours = timeStamp / toMS.hour;
   remainder %= toMS.hour;
@@ -29,7 +31,7 @@ function serializeTimeStamp(timeStamp, options) {
     // Map numbers to 0-padding + rounded strings
     .map((value, i) => `${Math.floor(value)}`.padStart(padding[i], '0'));
 
-  return `${strHours}:${strMinutes}:${strSeconds}${options.MS_SEPERATOR}${strMillis}`;
+  return `${strHours}:${strMinutes}:${strSeconds}${msSeperator}${strMillis}`;
 }
 
 /**
@@ -39,11 +41,11 @@ function serializeTimeStamp(timeStamp, options) {
  * @param  {[type]} timeSpan [description]
  * @return {[type]}          [description]
  */
-function serializeTimeSpan(timeSpan, options) {
+function serializeTimeSpan(timeSpan: Time, msSeperator: MsSeperator) {
   return `${serializeTimeStamp(
     timeSpan.start,
-    options
-  )} --> ${serializeTimeStamp(timeSpan.end, options)}`;
+    msSeperator
+  )} --> ${serializeTimeStamp(timeSpan.end, msSeperator)}`;
 }
 
 /**
@@ -51,8 +53,13 @@ function serializeTimeSpan(timeSpan, options) {
  * @param  {Array} srtChunks
  * @return {String}
  */
-export default function serialize(srtChunks, format = 'SRT') {
-  let options = {
+export default function serialize(srtChunks: Parsed[], format = 'SRT') {
+  let options: {
+    FILE_HEADER: string;
+    MS_SEPERATOR: MsSeperator;
+    CHUNK_SEPARATOR: string;
+    FORMAT_TEXT: (key: string) => string;
+  } = {
     FILE_HEADER: '',
     MS_SEPERATOR: ',',
     FORMAT_TEXT: (text) => text,
@@ -78,7 +85,7 @@ export default function serialize(srtChunks, format = 'SRT') {
     srtChunks
       .map(
         (chunk) => `${chunk.sequenceNumber}
-${serializeTimeSpan(chunk.time, options)}
+${serializeTimeSpan(chunk.time, options.MS_SEPERATOR)}
 ${options.FORMAT_TEXT(chunk.text)}`
       )
       .join(options.CHUNK_SEPARATOR)

@@ -1,14 +1,18 @@
 import BaseValidator from './base';
 import ERROR_CODE from '../utils/error-code';
+import { Parsed, ValidatorType } from '../utils/types';
 
 export default class CaptionTimeSpanValidator extends BaseValidator {
-  constructor(...args) {
-    super(...args);
-    this.validator = 'CaptionTimeSpanValidator';
+  readonly validator: ValidatorType = 'CaptionTimeSpanValidator';
+
+  constructor(protected parsedJSON: Parsed[]) {
+    super(parsedJSON);
   }
 
-  validate(...args) {
-    super.validate(...args);
+  validate() {
+    if (!this.parsedJSON.length) {
+      return this.result;
+    }
 
     let previousEndTime = 0;
     this.parsedJSON
@@ -18,6 +22,7 @@ export default class CaptionTimeSpanValidator extends BaseValidator {
             errorCode: ERROR_CODE.VALIDATOR_ERROR_START_TIME,
             message: 'start time should be less than end time',
             lineNumber: lineNumbers.timeSpan + 1, // lineNumber is 0-indexed
+            validator: this.validator,
           });
         }
 
@@ -34,6 +39,7 @@ export default class CaptionTimeSpanValidator extends BaseValidator {
             errorCode: ERROR_CODE.VALIDATOR_ERROR_END_TIME,
             message: 'start time should be less than previous end time',
             lineNumber: lineNumbers.timeSpan + 1, // lineNumber is 0-indexed
+            validator: this.validator,
           });
         }
 

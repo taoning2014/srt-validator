@@ -1,3 +1,13 @@
+root: true
+parserOptions:
+  project: ['./tsconfig.json']
+parser: '@typescript-eslint/parser'
+plugins:
+  - '@typescript-eslint'
 extends:
-  - eslint-config-airbnb-base
+  - airbnb-base
+  - airbnb-typescript/base
+  - plugin:@typescript-eslint/recommended
+  - plugin:@typescript-eslint/recommended-requiring-type-checking
   - prettier
+ignorePatterns: ['*.config.js']

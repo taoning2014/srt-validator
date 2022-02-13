@@ -1,5 +1,2 @@
-build
-docs
-i18n
-tmp
-vendor
+dist
+coverage
