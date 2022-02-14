@@ -1,3 +1,5 @@
+# Use this file to override .gitignore so that /dist will be includes on publishing to NPM
 /node_modules
 /coverage
 .DS_Store
+yarn-error.log
