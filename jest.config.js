@@ -1,6 +1,11 @@
 module.exports = {
   collectCoverage: true,
-  collectCoverageFrom: ['src/**/*.js'],
+  collectCoverageFrom: ['<rootDir>/dist/**/*.js'],
+  coveragePathIgnorePatterns: [
+    '<rootDir>/dist/srtValidator.js.js',
+    '<rootDir>/dist/utils/types.js',
+    '<rootDir>/dist/utils/validation-error.js',
+  ],
   verbose: true,
   transform: {
     '^.+\\.js$': 'babel-jest',

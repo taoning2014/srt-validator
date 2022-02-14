@@ -1,7 +1,7 @@
-import SRTParser from '../../src/parser';
-import ParseError from '../../src/parser/parse-error';
-import toMS from '../../src/parser/date';
-import { parseTimeStamp } from '../../src/parser/parse';
+import SRTParser from '../../dist/parser';
+import ParseError from '../../dist/utils/parse-error';
+import toMS from '../../dist/parser/date';
+import { parseTimeStamp } from '../../dist/parser/parse';
 
 test('Success: Simple caption file', () => {
   expect(
@@ -12,8 +12,8 @@ hello
 
 2
 00:00:00,001 --> 00:00:00,002
-world`
-    )
+world`,
+    ),
   ).toEqual([
     {
       lineNumbers: {
@@ -51,8 +51,8 @@ hello
 00:00:00,001 --> 00:00:00,002
 world
 
-`
-    )
+`,
+    ),
   ).toEqual([
     {
       lineNumbers: {
@@ -89,8 +89,8 @@ world
 this
 is
 cool
-`
-    )
+`,
+    ),
   ).toEqual([
     {
       lineNumbers: {
@@ -123,8 +123,8 @@ hello
 1
 00:00:00,001 --> 00:00:00,002
 world
-`
-    )
+`,
+    ),
   ).toEqual([
     {
       lineNumbers: {
@@ -154,8 +154,8 @@ hello
 
 2
 00:00:00,001 --> 00:00:00,002
-world`
-    )
+world`,
+    ),
   ).toThrow(new ParseError('Missing sequence number', 0));
 });
 
@@ -170,8 +170,8 @@ hello
 1
 00:00:00,000 --> 00:00:00,000
 hello
-`
-    )
+`,
+    ),
   ).toThrow(new ParseError('Missing sequence number', 4));
 });
 
@@ -196,7 +196,7 @@ test('Failure: missing time span', () => {
     SRTParser.parse(`1
 
 hello
-  `)
+  `),
   ).toThrow(new ParseError('Missing time span', 2));
 });
 
@@ -204,7 +204,7 @@ test('Failure: invalid time span with missing end time', () => {
   expect(() =>
     SRTParser.parse(`1
 00:00:00,000 -->
-hello`)
+hello`),
   ).toThrow(new ParseError('Invalid time span: 00:00:00,000 -->', 2));
 });
 
@@ -213,8 +213,8 @@ test('Failure: invalid sequence number', () => {
     SRTParser.parse(
       `asdf
 00:00:00,000 --> 00:00:00,001
-hello`
-    )
+hello`,
+    ),
   ).toThrow(new ParseError('Expected Integer for sequence number: asdf', 0));
 });
 
@@ -223,10 +223,10 @@ test('Failure: invalid time span', () => {
     SRTParser.parse(
       `1
 00:00:00,000 -> 00:00:00,001
-hello`
-    )
+hello`,
+    ),
   ).toThrow(
-    new ParseError('Invalid time span: 00:00:00,000 -> 00:00:00,001', 1)
+    new ParseError('Invalid time span: 00:00:00,000 -> 00:00:00,001', 1),
   );
 });
 
@@ -238,7 +238,7 @@ test('Failure: invalid time span with trailing whitespace', () => {
   ].join('\n');
 
   expect(() => SRTParser.parse(input)).toThrow(
-    new ParseError('Invalid time span: 00:00:00,000 --> 00:00:00,001 ', 2)
+    new ParseError('Invalid time span: 00:00:00,000 --> 00:00:00,001 ', 2),
   );
 });
 
@@ -250,7 +250,7 @@ test('Failure: invalid sequence number with trailing whitespace', () => {
   ].join('\n');
 
   expect(() => SRTParser.parse(input)).toThrow(
-    new ParseError('Expected Integer for sequence number: 1 ', 0)
+    new ParseError('Expected Integer for sequence number: 1 ', 0),
   );
 });
 
@@ -259,16 +259,16 @@ test('Failure: invalid time stamp', () => {
     SRTParser.parse(
       `1
 asdf --> 00:00:00,000
-hello`
-    )
+hello`,
+    ),
   ).toThrow(new ParseError('Invalid time stamp: asdf', 1), 'start timestamp');
 
   expect(() =>
     SRTParser.parse(
       `1
 00:00:00,000 --> asdf
-hello`
-    )
+hello`,
+    ),
   ).toThrow(new ParseError('Invalid time stamp: asdf', 1), 'end timestamp');
 
   // unpadded
@@ -276,8 +276,8 @@ hello`
     SRTParser.parse(
       `1
 0:0:0,0 --> 00:00:00,001
-hello`
-    )
+hello`,
+    ),
   ).toThrow(new ParseError('Invalid time stamp: 0:0:0,0', 1), 'end timestamp');
 
   // decimal
@@ -285,11 +285,11 @@ hello`
     SRTParser.parse(
       `1
 00:00:00,000 --> 00:00:00.001
-hello`
-    )
+hello`,
+    ),
   ).toThrow(
     new ParseError('Invalid time stamp: 00:00:00.001', 1),
-    'end timestamp'
+    'end timestamp',
   );
 });
 
@@ -298,10 +298,10 @@ test('Failure: invalid time span with missing "-" in "->"', () => {
     SRTParser.parse(
       `1
 00:00:00,000 -> 00:00:00,001
-hello`
-    )
+hello`,
+    ),
   ).toThrow(
-    new ParseError('Invalid time span: 00:00:00,000 -> 00:00:00,001', 1)
+    new ParseError('Invalid time span: 00:00:00,000 -> 00:00:00,001', 1),
   );
 });
 
@@ -309,8 +309,8 @@ test('Failure: missing caption text', () => {
   expect(() =>
     SRTParser.parse(
       `1
-00:00:00,000 --> 00:00:00,000`
-    )
+00:00:00,000 --> 00:00:00,000`,
+    ),
   ).toThrow(new ParseError('Missing caption text', 2));
 });
 

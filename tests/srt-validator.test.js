@@ -1,4 +1,4 @@
-import srtValidator from '../src/index';
+import srtValidator from '../dist/index';
 
 test('Success: empty array is returned when there are no errors', () => {
   const input = `1
@@ -154,21 +154,19 @@ world
 sup
   `;
 
-  expect(srtValidator(invalidTimeSpanInput)).toEqual([
-    {
-      errorCode: 'parserErrorInvalidTimeSpan',
-      lineNumber: 2,
-      message: 'Invalid time span: 00:00:00,000 -->',
-    },
-  ]);
+  let [{ errorCode, lineNumber, message }] = srtValidator(invalidTimeSpanInput);
+  expect({ errorCode, lineNumber, message }).toEqual({
+    errorCode: 'parserErrorInvalidTimeSpan',
+    lineNumber: 2,
+    message: 'Invalid time span: 00:00:00,000 -->',
+  });
 
-  expect(srtValidator(missingTimeSpanInput)).toEqual([
-    {
-      errorCode: 'parserErrorMissingTimeSpan',
-      lineNumber: 7,
-      message: 'Missing time span',
-    },
-  ]);
+  [{ errorCode, lineNumber, message }] = srtValidator(missingTimeSpanInput);
+  expect({ errorCode, lineNumber, message }).toEqual({
+    errorCode: 'parserErrorMissingTimeSpan',
+    lineNumber: 7,
+    message: 'Missing time span',
+  });
 });
 
 test('Failure: parse errors from timestamps are returned', () => {
@@ -177,39 +175,36 @@ test('Failure: parse errors from timestamps are returned', () => {
 hello
 world`;
 
-  expect(srtValidator(gibberishTimestamp)).toEqual([
-    {
-      errorCode: 'parserErrorInvalidTimeStamp',
-      lineNumber: 2,
-      message: 'Invalid time stamp: gi:bb:00,ish',
-    },
-  ]);
+  let [{ errorCode, lineNumber, message }] = srtValidator(gibberishTimestamp);
+  expect({ errorCode, lineNumber, message }).toEqual({
+    errorCode: 'parserErrorInvalidTimeStamp',
+    lineNumber: 2,
+    message: 'Invalid time stamp: gi:bb:00,ish',
+  });
 
   const unpaddedTimestamp = `1
 0:0:0,0 --> 0:0:0,1
 hello
 world`;
 
-  expect(srtValidator(unpaddedTimestamp)).toEqual([
-    {
-      errorCode: 'parserErrorInvalidTimeStamp',
-      lineNumber: 2,
-      message: 'Invalid time stamp: 0:0:0,0',
-    },
-  ]);
+  [{ errorCode, lineNumber, message }] = srtValidator(unpaddedTimestamp);
+  expect({ errorCode, lineNumber, message }).toEqual({
+    errorCode: 'parserErrorInvalidTimeStamp',
+    lineNumber: 2,
+    message: 'Invalid time stamp: 0:0:0,0',
+  });
 
   const decimalTimeStamp = `1
 00:00:00.000 --> 00:00:00.001
 hello
 world`;
 
-  expect(srtValidator(decimalTimeStamp)).toEqual([
-    {
-      errorCode: 'parserErrorInvalidTimeStamp',
-      lineNumber: 2,
-      message: 'Invalid time stamp: 00:00:00.000',
-    },
-  ]);
+  [{ errorCode, lineNumber, message }] = srtValidator(decimalTimeStamp);
+  expect({ errorCode, lineNumber, message }).toEqual({
+    errorCode: 'parserErrorInvalidTimeStamp',
+    lineNumber: 2,
+    message: 'Invalid time stamp: 00:00:00.000',
+  });
 });
 
 test('Failure: parse errors from sequence numbers are returned', () => {
@@ -239,36 +234,32 @@ world`;
 00:00:00,001 --> 00:00:00,002
 hi again`;
 
-  expect(srtValidator(invalidSequenceInput)).toEqual([
-    {
-      errorCode: 'parserErrorInvalidSequenceNumber',
-      lineNumber: 1,
-      message:
-        'Expected Integer for sequence number: this is clearly not a sequence',
-    },
-  ]);
+  let [{ errorCode, lineNumber, message }] = srtValidator(invalidSequenceInput);
+  expect({ errorCode, lineNumber, message }).toEqual({
+    errorCode: 'parserErrorInvalidSequenceNumber',
+    lineNumber: 1,
+    message:
+      'Expected Integer for sequence number: this is clearly not a sequence',
+  });
 
-  expect(srtValidator(missingSequenceInput)).toEqual([
-    {
-      errorCode: 'parserErrorMissingSequenceNumber',
-      lineNumber: 6,
-      message: 'Missing sequence number',
-    },
-  ]);
+  [{ errorCode, lineNumber, message }] = srtValidator(missingSequenceInput);
+  expect({ errorCode, lineNumber, message }).toEqual({
+    errorCode: 'parserErrorMissingSequenceNumber',
+    lineNumber: 6,
+    message: 'Missing sequence number',
+  });
 
-  expect(srtValidator(missingTimeSpan)).toEqual([
-    {
-      errorCode: 'parserErrorMissingTimeSpan',
-      lineNumber: 2,
-      message: 'Missing time span',
-    },
-  ]);
+  [{ errorCode, lineNumber, message }] = srtValidator(missingTimeSpan);
+  expect({ errorCode, lineNumber, message }).toEqual({
+    errorCode: 'parserErrorMissingTimeSpan',
+    lineNumber: 2,
+    message: 'Missing time span',
+  });
 
-  expect(srtValidator(missingCaption)).toEqual([
-    {
-      errorCode: 'parserErrorMissingText',
-      lineNumber: 3,
-      message: 'Missing caption text',
-    },
-  ]);
+  [{ errorCode, lineNumber, message }] = srtValidator(missingCaption);
+  expect({ errorCode, lineNumber, message }).toEqual({
+    errorCode: 'parserErrorMissingText',
+    lineNumber: 3,
+    message: 'Missing caption text',
+  });
 });
