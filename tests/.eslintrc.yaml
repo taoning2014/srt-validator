@@ -1,5 +1,10 @@
+root: true
 extends:
+  - airbnb-base
   - plugin:jest/recommended
   - plugin:jest/style
 plugins:
   - jest
+rules:
+  implicit-arrow-linebreak: warn
+  function-paren-newline: warn

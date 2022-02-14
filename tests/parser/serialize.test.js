@@ -1,5 +1,5 @@
-import SRTParser from '../../src/parser';
-import toMS from '../../src/parser/date';
+import SRTParser from '../../dist/parser';
+import toMS from '../../dist/parser/date';
 
 test('Success: simple serialization', () => {
   const expected = `1
@@ -22,7 +22,7 @@ World`;
         time: { start: 0, end: 0 },
         text: 'World',
       },
-    ])
+    ]),
   ).toBe(expected);
 });
 
@@ -53,8 +53,8 @@ My dudes`;
           text: 'My dudes',
         },
       ],
-      'WebVTT'
-    )
+      'WebVTT',
+    ),
   ).toBe(expected);
 });
 
@@ -68,7 +68,7 @@ test('Failure: invalid format', () => {
           text: 'It\nis\nwednesday',
         },
       ],
-      'Gibberish'
-    )
+      'Gibberish',
+    ),
   ).toThrow(new Error('Unrecognized format: Gibberish'));
 });
