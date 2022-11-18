@@ -1,8 +1,8 @@
 {
   "name": "srt-validator",
-  "version": "6.0.3",
+  "version": "6.0.4",
   "description": "",
-  "main": "dist/srtValidator.js",
+  "main": "dist/index.js",
   "engines": {
     "node": ">= 12.22.0"
   },
